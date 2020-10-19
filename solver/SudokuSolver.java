@@ -1,12 +1,5 @@
-/*
- * @author Jeffrey Chan & Minyi Li, RMIT 2020
- */
-
 package solver;
-
 import grid.SudokuGrid;
-
-
 /**
  * Abstract class of a Sudoku solver.  Defines the interface for all solvers.
  */
