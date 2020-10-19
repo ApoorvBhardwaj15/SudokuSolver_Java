@@ -1,26 +1,11 @@
-/*
- * @author Jeffrey Chan & Minyi Li, RMIT 2020
- */
 package solver;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
-
-
 import grid.SudokuGrid;
 
-
-/**
- * Algorithm X solver for standard Sudoku.
- */
 public class AlgorXSolver extends StdSudokuSolver
 {
-	// TODO: Add attributes as needed.
-	public AlgorXSolver() {
-		// TODO: any initialisation you want to implement.
-	} // end of AlgorXSolver()
-
-
 	@Override
 	public boolean solve(SudokuGrid grid) {
 
@@ -28,38 +13,22 @@ public class AlgorXSolver extends StdSudokuSolver
 		boolean solve;
 		int [][] BG = createBinaryGrid(grid,size);
 		Set<Integer> resultSet = new HashSet<Integer>();
-		//System.out.println(BG.length + " ## " + BG[0].length);
-
 		BG = loadPartialSolution(grid,BG,size,resultSet);
-
 		solve =recursiveSolve(BG,resultSet);
-		//System.out.println(resultSet.size() + "  ");
 		for(int n : resultSet) {
 			int[] check = bGIndexToRowColNum(n,grid.grid.length);
-			//System.out.println(check[0] + " " + check[1] + " " + check[2]);
-
 				grid.grid[check[0]-1][check[1]-1] = grid.values[check[2]-1];
 	
 		}
-		
-
-		
-
-
-		// placeholder
 		return solve;
 	} // end of solve()
 
-
 	private boolean recursiveSolve(int[][] bG, Set<Integer> resultSet) {
-		// TODO Auto-generated method stub
-		//System.out.println("bG: " + bG.length);
 		int colMinIndex = getColIndexWithMinimumOnes(bG);
 		if(bG.length == 1)
 			return true;
 		if(colMinIndex == -1)
 			return false;
-
 		for(int row = 1 ; row <bG.length ; row ++) {
 			if(bG[row][colMinIndex] == 1) {
 				
@@ -77,7 +46,6 @@ public class AlgorXSolver extends StdSudokuSolver
 	}
 
 	private int getColIndexWithMinimumOnes(int[][] bG) {
-		// TODO Auto-generated method stub
 		TreeMap<Integer,Integer> numOfOnes = new TreeMap<Integer,Integer>();
 		numOfOnes = calcNumOfOnes(numOfOnes,bG);
 		if(numOfOnes.containsKey(0))
@@ -85,10 +53,7 @@ public class AlgorXSolver extends StdSudokuSolver
 		if(numOfOnes.size()==0)
 			return 0;
 		return numOfOnes.firstEntry().getValue();
-
-
 	}
-
 
 	private int[][] processSelectedRow(int[][] bG, int rowIndex){
 		int[][] temp;
@@ -100,7 +65,6 @@ public class AlgorXSolver extends StdSudokuSolver
 	}
 
 	private TreeMap<Integer,Integer> calcNumOfOnes(TreeMap<Integer,Integer> numOfOnes,int[][] bG) {
-		//System.out.println("size of bG input: "+ bG.length);
 		for(int col =1 ; col < bG[0].length ; col++) {
 			int counter = 0;
 			for(int row=1 ; row< bG.length; row++) {
@@ -109,13 +73,9 @@ public class AlgorXSolver extends StdSudokuSolver
 				}
 			}
 			numOfOnes.put(counter, col);
-
 		}
 		return numOfOnes;
 	}
-
-
-
 
 	private int[][] loadPartialSolution(SudokuGrid grid, int[][] bG, int size, Set<Integer> resultSet) {
 
@@ -132,24 +92,16 @@ public class AlgorXSolver extends StdSudokuSolver
 							coverBGRow(rowsToRemove,colsToRemove,bG,index);
 							break;
 						}
-
 					}
-
 				}
 			}
 		}	
 		temp = deleteRowsCols(bG,rowsToRemove,colsToRemove);
 		return temp;
 		// TODO Auto-generated method stub
-
 	}
 
-
-
-
 	private void coverBGRow(Set<Integer> rowsToRemove,Set<Integer> colsToRemove,int[][] bG, int index) {
-
-
 		for(int j=1; j< bG[0].length;j++) {
 			if(bG[index][j]==1) {
 				for(int i =1; i< bG.length;i++) {
@@ -161,7 +113,6 @@ public class AlgorXSolver extends StdSudokuSolver
 			}
 		}
 		rowsToRemove.add(index);
-
 	}
 
 	private int[][] deleteRowsCols(int[][] bG, Set<Integer> rowsToRemove, Set<Integer> colsToRemove) {
@@ -170,25 +121,20 @@ public class AlgorXSolver extends StdSudokuSolver
 		int numOfCols = colsToRemove.size();
 
 		int [][] temp = new int[bG.length-numOfRows][bG[0].length - numOfCols];
-		//int [][] temp = new int[bG.length][bG[0].length ];
 		int p = 0;
 		for(int row = 0 ; row < bG.length ; row++) {
 			if(rowsToRemove.contains(row)) {
 				continue;
 			}
-
 			int q=0;
 			for(int col =0 ; col < bG[0].length ; col++) {
 				if(colsToRemove.contains(col))
 					continue;
-
 				temp[p][q] = bG[row][col];
 				++q;
 			}
 			++p;
 		}
-
-
 		return temp;
 	}
 
@@ -205,21 +151,16 @@ public class AlgorXSolver extends StdSudokuSolver
 	private int[][] createBinaryGrid(SudokuGrid grid, int size) {
 		// TODO Auto-generated method stub
 		int[][] binaryGrid = new int[size*size*size + 1][4*size*size + 1];
-
 		for(int j = 0 ; j < 4*size*size + 1 ; j++ ) {
 			binaryGrid[0][j] = j;
 		}
-
 		for(int i = 0 ; i < size*size*size + 1 ; i++ ) {
 			binaryGrid[i][0] = i;
 			if(i != 0) {
 				int[] index = bGIndexToRowColNum(i,size);
 				setRowValues(binaryGrid,index,size,i);
 			}
-
 		}
-
-
 		return binaryGrid;
 	}
 
@@ -246,18 +187,13 @@ public class AlgorXSolver extends StdSudokuSolver
 			else {
 				block = ((index[0]/subGridSize)-1)*subGridSize + index[1]/subGridSize;
 			}
-
 		}
 
 		int blockConstraint = 3*size*size + (block-1)*size + index[2];
-
-
 		binaryGrid[i][cellConstraint] = 1;
 		binaryGrid[i][rowConstraint] = 1;
 		binaryGrid[i][colConstraint] = 1;
 		binaryGrid[i][blockConstraint] = 1;
-
-
 	}
 
 
@@ -295,7 +231,4 @@ public class AlgorXSolver extends StdSudokuSolver
 
 		return indexToFill;
 	}
-
-	
-
 } // end of class AlgorXSolver
