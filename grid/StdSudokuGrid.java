@@ -1,6 +1,3 @@
-/**
- * @author Jeffrey Chan & Minyi Li, RMIT 2020
- */
 package grid;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,29 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Class implementing the grid for standard Sudoku.
- * Extends SudokuGrid (hence implements all abstract methods in that abstract
- * class).
- * You will need to complete the implementation for this for task A and
- * subsequently use it to complete the other classes.
- * See the comments in SudokuGrid to understand what each overriden method is
- * aiming to do (and hence what you should aim for in your implementation).
- */
 public class StdSudokuGrid extends SudokuGrid
-{
-    // TODO: Add your own attributes
-
-	
+{	
     public StdSudokuGrid() {
         super();
-       
-        // TODO: any necessary initialisation at the constructor
-    } // end of StdSudokuGrid()
-
-
-    /* ********************************************************* */
-
 
     @Override
     public void initGrid(String filename)
@@ -44,8 +22,7 @@ public class StdSudokuGrid extends SudokuGrid
     		String inputLine1 = "";
     		String inputLine2 = "";
     		String splitRegex = " ";
-    		String splitRegexIndex = ",";
-
+    		String splitRegexIndex = ","
  
     		try {
     			fr = new FileReader(filename);
@@ -74,8 +51,6 @@ public class StdSudokuGrid extends SudokuGrid
 			
     			}
     			
-
-
     		} catch (FileNotFoundException e) {
     			System.out.println("FileNotFoundException in reading input file");
     			e.printStackTrace();
@@ -88,8 +63,7 @@ public class StdSudokuGrid extends SudokuGrid
     					inputBufferedReader.close();
     				} catch (IOException e) {
     					System.out.println("IOException in closing inputBufferedReader");
-    					e.printStackTrace();
-    					
+    					e.printStackTrace();    					
     				}
     			}
     			try{
@@ -99,9 +73,7 @@ public class StdSudokuGrid extends SudokuGrid
     				e.printStackTrace();
     				
     			}
-    		}		
-    	
-    		
+    		}		    	
     } // end of initBoard()
 
 
@@ -109,11 +81,9 @@ public class StdSudokuGrid extends SudokuGrid
     public void outputGrid(String filename)
         throws FileNotFoundException, IOException
     {
-        // TODO
-    	try {
-    	      
-            PrintWriter outWriter = new PrintWriter(new FileWriter(filename), true);
-            
+       // TODO
+    	try {     
+            PrintWriter outWriter = new PrintWriter(new FileWriter(filename), true);      
             String s = toString();
             // process the operations
             outWriter.println(s);
@@ -125,7 +95,6 @@ public class StdSudokuGrid extends SudokuGrid
             System.err.println(ex.getMessage());
         } 
     } // end of outputBoard()
-
 
     @Override
     public String toString() {
@@ -150,13 +119,4 @@ public class StdSudokuGrid extends SudokuGrid
         return s;
     } // end of toString()
 
-
-   // @Override
-   /* public boolean validate() {
-        // TODO
-
-        // placeholder
-        return false;
-    } // end of validate()
-*/
 } // end of class StdSudokuGrid
