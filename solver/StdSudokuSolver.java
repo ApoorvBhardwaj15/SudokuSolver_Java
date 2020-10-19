@@ -1,7 +1,3 @@
-/*
- * @author Jeffrey Chan & Minyi Li, RMIT 2020
- */
-
 package solver;
 
 
