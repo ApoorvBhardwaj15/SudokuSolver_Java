@@ -1,24 +1,10 @@
-/*
- * @author Jeffrey Chan & Minyi Li, RMIT 2020
- */
-
 package solver;
-
 import grid.SudokuGrid;
-
-
 /**
  * Backtracking solver for standard Sudoku.
  */
 public class BackTrackingSolver extends StdSudokuSolver
 {
-    // TODO: Add attributes as needed.
-
-    public BackTrackingSolver() {
-        // TODO: any initialisation you want to implement.
-    } // end of BackTrackingSolver()
-
-
     @Override
     public boolean solve(SudokuGrid grid) {
     	int size =  grid.getValues().length;
