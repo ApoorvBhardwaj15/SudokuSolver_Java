@@ -1,8 +1,4 @@
-/**
- * @author Jeffrey Chan & Minyi Li, RMIT 2020
- */
 package grid;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,15 +14,6 @@ import java.util.Stack;
 
 import grid.KillerSudokuGrid.Cell;
 
-/**
- * Class implementing the grid for Killer Sudoku.
- * Extends SudokuGrid (hence implements all abstract methods in that abstract
- * class).
- * You will need to complete the implementation for this for task E and
- * subsequently use it to complete the other classes.
- * See the comments in SudokuGrid to understand what each overriden method is
- * aiming to do (and hence what you should aim for in your implementation).
- */
 public class KillerSudokuGrid extends SudokuGrid
 {
     // TODO: Add your own attributes
@@ -41,7 +28,7 @@ public class KillerSudokuGrid extends SudokuGrid
 	}
 
 	boolean[][] dp;
-    public static HashMap<Integer, ArrayList<Cell>> getCages() {
+    	public static HashMap<Integer, ArrayList<Cell>> getCages() {
 		return cages;
 	}
     
@@ -54,12 +41,7 @@ public class KillerSudokuGrid extends SudokuGrid
         this.cages = cages;
         this.cellCageMapping = cellCageMapping;
         this.cageSpecificValues = cageSpecificValues;
-        // TODO: any necessary initialisation at the constructor
     } // end of KillerSudokuGrid()
-
-
-    /* ********************************************************* */
-
 
     @Override
     public void initGrid(String filename)
@@ -101,10 +83,7 @@ public class KillerSudokuGrid extends SudokuGrid
 				int sum = Integer.valueOf(lineSplit[0]);
 				ArrayList<Cell> cellList = new ArrayList<Cell>();
 				int cardinality = 0;
-				for(int i = 1 ; i <lineSplit.length ; i++) {
-					
-					//String Index = String.valueOf(lineSplit[0]);
-					
+				for(int i = 1 ; i <lineSplit.length ; i++) {			
 					String rowColCell = String.valueOf(lineSplit[i]);
 					String[] rowCol = rowColCell.split(splitRegexIndex);
 					int row = Integer.valueOf(rowCol[0]);
@@ -115,24 +94,14 @@ public class KillerSudokuGrid extends SudokuGrid
 					cardinality++;
 				}
 				cages.put(j, cellList);
-				List<Stack<Integer>> possibleSolutions = new ArrayList<Stack<Integer>>();
-				
+				List<Stack<Integer>> possibleSolutions = new ArrayList<Stack<Integer>>();			
 				getAllSubsets(values,values.length,sum,j,cardinality,possibleSolutions);
 				Cage cage = new Cage(j,sum,cellList,possibleSolutions);
-				cageList.add(cage);
-				//System.out.println(cageSpecificValues.get(34) +" second last cage ");
-			//	Cage(int id,int sum, List<Cell> cellList,List<Stack<Integer>> permutatedSolutions )
+				cageList.add(cage);			
 				j++;
 			}
 			
-			//System.out.println(" cage id: " + cageList.get(33).id + " cage ps= " + cageList.get(33).permutatedSolutions.size());
-			//for(Cage st : cageList) {
-			//	System.out.println(st.permutatedSolutions.size());
-			//}
-	//		for(Set<Integer> id: cageSpecificValues.values()) {
-	//			System.out.println(" cage size: " + id.size()+ " cage values= " + id.toString());
-	//		}
-
+	
 		} catch (FileNotFoundException e) {
 			System.out.println("FileNotFoundException in reading input file");
 			e.printStackTrace();
@@ -145,8 +114,7 @@ public class KillerSudokuGrid extends SudokuGrid
 					inputBufferedReader.close();
 				} catch (IOException e) {
 					System.out.println("IOException in closing inputBufferedReader");
-					e.printStackTrace();
-					
+					e.printStackTrace();					
 				}
 			}
 			try{
@@ -160,16 +128,13 @@ public class KillerSudokuGrid extends SudokuGrid
 	
     } // end of initBoard()
 
-
     @Override
     public void outputGrid(String filename)
         throws FileNotFoundException, IOException
     {
         // TODO
-    	try {
-  	      
-            PrintWriter outWriter = new PrintWriter(new FileWriter(filename), true);
-            
+    	try { 	      
+            PrintWriter outWriter = new PrintWriter(new FileWriter(filename), true);           
             String s = toString();
             // process the operations
             outWriter.println(s);
@@ -185,7 +150,6 @@ public class KillerSudokuGrid extends SudokuGrid
 
     @Override
     public String toString() {
-        // TODO
     	int size = values.length;
     	String s ="";
     	for (int row = 0; row < size; row++) {
@@ -194,26 +158,14 @@ public class KillerSudokuGrid extends SudokuGrid
                 	//System.out.print(grid[row][column] + ",");
                 	s+=grid[row][column]+",";
                 }
-                else {
-                	//System.out.print(grid[row][column]);
+                else {                	
                 	s+=grid[row][column]+"\n";
                 }
             	
-            }
-            //System.out.println();
+            }         
         }
-        // placeholder
         return s;
-        // placeholder
     } // end of toString()
-
-
-	/*
-	 * @Override public boolean validate() { // TODO
-	 * 
-	 * // placeholder return false; } // end of validate()
-	 */
-    
     
     public void getAllSubsetsRec(int arr[], int i, int sum, 
     		ArrayList<Integer> p,int cageId, int cardinality,List<Stack<Integer>> possibleSolutions) 
@@ -344,26 +296,5 @@ public class KillerSudokuGrid extends SudokuGrid
 			this.sum = sum;
 		}
     }
-    
- // A Java program to count all subsets with given sum. 
-   // public class SubSet_sum_problem 
-   // { 
-    	// dp[i][j] is going to store true if sum j is 
-    	// possible with array elements from 0 to i. 
-    	 	
-   	// A recursive function to print all subsets with the 
-    	// help of dp[][]. Vector p[] stores current subset. 
-    	
-    	
-    	// Prints all subsets of arr[0..n-1] with sum 0. 
-    	 
-    	
-    	//Driver Program to test above functions 
-		/*
-		 * public static void main(String args[]) { int arr[] = {1, 2, 3, 4, 5}; int n =
-		 * arr.length; int sum = 10; //printAllSubsets(arr, n, sum); }
-		 */ 
-   // } 
-    //This code is contributed by Sumit Ghosh 
-
+   
 } // end of class KillerSudokuGrid
